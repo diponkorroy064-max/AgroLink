@@ -4,33 +4,39 @@ import { Eye, EyeOff, Leaf } from "lucide-react";
 import { useState } from "react";
 import { useForm } from "react-hook-form";
 import { RegisterFormData } from "@/types/auth";
+import toast from "react-hot-toast";
 
 export default function RegisterForm() {
     const [showPassword, setShowPassword] = useState(false);
-    const { register, handleSubmit, formState: { errors }} = useForm<RegisterFormData>();
+    const { register, handleSubmit, formState: { errors } } = useForm<RegisterFormData>();
 
     const onSubmit = async (data: RegisterFormData) => {
-        console.log("Registration Data:", data);
+        try {
+            if (data.password !== data.confirmPassword) {
+                throw new Error("Passwords do not match.");
+            }
 
-        // Check password match
-        if (data.password !== data.confirmPassword) {
-            alert("Passwords do not match");
-            return;
+            const userData = {
+                name: data.name,
+                email: data.email,
+                photoURL: data.photoURL || "",
+                role: data.role,
+                password: data.password,
+            };
+
+            console.log(userData);
+
+            // const response = await fetch(...)
+
+            toast.success("Registration successful!");
         }
-
-        // Remove confirmPassword before sending to backend
-        const userData = {
-            name: data.name,
-            email: data.email,
-            photoURL: data.photoURL,
-            role: data.role,
-            password: data.password,
-        };
-
-        console.log("User Data:", userData);
-
-        // Later:
-        // await registerUser(userData);
+        catch (error) {
+            if (error instanceof Error) {
+                toast.error(error.message);
+            } else {
+                toast.error("Something went wrong!");
+            }
+        }
     };
 
 
@@ -67,6 +73,10 @@ export default function RegisterForm() {
                             placeholder="Enter your full name"
                             className="w-full rounded-xl border border-gray-300 px-4 py-3 focus:border-green-600 focus:outline-none"
                         />
+                        {errors.name && (
+                            <p className="mt-1 text-sm text-red-500">
+                                {errors.name.message}
+                            </p>)}
                     </div>
 
                     {/* Email */}
@@ -83,12 +93,16 @@ export default function RegisterForm() {
                             placeholder="Enter your email"
                             className="w-full rounded-xl border border-gray-300 px-4 py-3 focus:border-green-600 focus:outline-none"
                         />
+                        {errors.email && (
+                            <p className="mt-1 text-sm text-red-500">
+                                {errors.email.message}
+                            </p>)}
                     </div>
 
                     {/* Photo URL */}
                     <div>
                         <label className="mb-2 block font-medium">
-                            Photo URL <span className="text-gray-400">(Optional)</span>
+                            Photo URL
                         </label>
 
                         <input
@@ -97,6 +111,10 @@ export default function RegisterForm() {
                             placeholder="https://..."
                             className="w-full rounded-xl border border-gray-300 px-4 py-3 focus:border-green-600 focus:outline-none"
                         />
+                        {errors.photoURL && (
+                            <p className="mt-1 text-sm text-red-500">
+                                {errors.photoURL.message}
+                            </p>)}
                     </div>
 
                     {/* Role */}
@@ -132,6 +150,10 @@ export default function RegisterForm() {
                                 🏢 Agribusiness Professional
                             </option>
                         </select>
+                        {errors.role && (
+                            <p className="mt-1 text-sm text-red-500">
+                                {errors.role.message}
+                            </p>)}
                     </div>
 
                     {/* Password */}
@@ -149,6 +171,10 @@ export default function RegisterForm() {
                                 placeholder="Create password"
                                 className="w-full rounded-xl border border-gray-300 px-4 py-3 pr-12 focus:border-green-600 focus:outline-none"
                             />
+                            {errors.password && (
+                                <p className="mt-1 text-sm text-red-500">
+                                    {errors.password.message}
+                                </p>)}
 
                             <button
                                 type="button"
@@ -180,6 +206,11 @@ export default function RegisterForm() {
                             placeholder="Confirm password"
                             className="w-full rounded-xl border border-gray-300 px-4 py-3 focus:border-green-600 focus:outline-none"
                         />
+                        {errors.confirmPassword && (
+                            <p className="mt-1 text-sm text-red-500">
+                                {errors.confirmPassword.message}
+                            </p>
+                        )}
                     </div>
 
                     <button
