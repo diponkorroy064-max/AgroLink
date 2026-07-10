@@ -93,7 +93,7 @@ export default function Navbar() {
                             </button>
                         ) : (
                             <Link
-                                href="/login"
+                                href="/auth/login"
                                 className="rounded-xl bg-green-600 px-5 py-2 font-medium text-white transition hover:bg-green-700"
                             >
                                 Login
