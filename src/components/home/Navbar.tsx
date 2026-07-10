@@ -3,6 +3,7 @@ import Link from "next/link";
 import { Menu, X, Leaf } from "lucide-react";
 import { useState } from "react";
 import Container from "../shared/Container";
+import { usePathname } from "next/navigation";
 
 const navLinks = [
     {
@@ -25,6 +26,7 @@ const navLinks = [
 
 export default function Navbar() {
     const [open, setOpen] = useState(false);
+    const pathname = usePathname();
 
     // Change this after authentication
     const isLoggedIn = false;
@@ -51,15 +53,18 @@ export default function Navbar() {
 
                     {/* Desktop Menu */}
                     <nav className="hidden items-center gap-8 md:flex">
-                        {navLinks.map((item) => (
-                            <Link
-                                key={item.title}
-                                href={item.href}
-                                className="font-medium text-gray-700 transition-colors duration-300 hover:text-green-600"
-                            >
-                                {item.title}
-                            </Link>
-                        ))}
+                        {navLinks.map((item) => {
+                            const isActive = pathname === item.href;
+                            return (
+                                <Link
+                                    key={item.title}
+                                    href={item.href}
+                                    className={`font-medium transition-colors duration-300 hover:text-green-600 ${isActive ? "text-green-600" : "text-gray-700"}`}
+                                >
+                                    {item.title}
+                                </Link>
+                            );
+                        })}
 
                         {isLoggedIn && (
                             <>
@@ -98,7 +103,7 @@ export default function Navbar() {
 
                     {/* Mobile Menu Button */}
                     <button
-                        className="md:hidden"
+                        className="md:hidden cursor-pointer"
                         onClick={() => setOpen(!open)}
                         aria-label="Toggle Menu"
                     >
@@ -114,16 +119,18 @@ export default function Navbar() {
                 {open && (
                     <div className="border-t py-5 md:hidden">
                         <div className="flex flex-col gap-4">
-                            {navLinks.map((item) => (
-                                <Link
-                                    key={item.title}
-                                    href={item.href}
-                                    onClick={() => setOpen(false)}
-                                    className="font-medium text-gray-700 hover:text-green-600"
-                                >
-                                    {item.title}
-                                </Link>
-                            ))}
+                            {navLinks.map((item) => {
+                                const isActive = pathname === item.href;
+                                return (
+                                    <Link
+                                        key={item.title}
+                                        href={item.href}
+                                        onClick={() => setOpen(false)}
+                                        className={`font-medium transition-colors duration-300 hover:text-green-600 ${isActive ? "text-green-600" : "text-gray-700"}`}
+                                    >
+                                        {item.title}
+                                    </Link>
+                            )})}
 
                             {isLoggedIn && (
                                 <>

@@ -11,14 +11,7 @@ interface ResourceCardProps {
     description: string;
 }
 
-const ResourceCard = ({
-    title,
-    category,
-    image,
-    location,
-    rating,
-    description,
-}: ResourceCardProps) => {
+const ResourceCard = ({ title, category, image, location, rating, description,}: ResourceCardProps) => {
     return (
         <div className="group overflow-hidden rounded-2xl border bg-white shadow-sm transition-all duration-300 hover:-translate-y-2 hover:shadow-xl">
             <div className="relative h-56">
