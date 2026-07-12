@@ -4,32 +4,25 @@ import { Menu, X, Leaf } from "lucide-react";
 import { useState } from "react";
 import Container from "../shared/Container";
 import { usePathname } from "next/navigation";
+import { authClient, useSession } from "@/lib/auth-client";
+// import { Avatar } from "@heroui/react";
 
 const navLinks = [
-    {
-        title: "Home",
-        href: "/",
-    },
-    {
-        title: "Explore",
-        href: "/explore",
-    },
-    {
-        title: "About",
-        href: "/about",
-    },
-    {
-        title: "Contact",
-        href: "/contact",
-    },
+    { title: "Home", href: "/" },
+    { title: "Explore", href: "/explore" },
+    { title: "About", href: "/about" },
+    { title: "Contact", href: "/contact" },
 ];
 
 export default function Navbar() {
     const [open, setOpen] = useState(false);
     const pathname = usePathname();
 
-    // Change this after authentication
-    const isLoggedIn = false;
+    const { data, isPending } = useSession();
+    // console.log("User session:", data, isPending);
+    // const user = data?.user;
+    // console.log("User info:", user);
+    const isLoggedIn = !!data;
 
     return (
         <header className="sticky top-0 z-50 border-b bg-white shadow-sm">
@@ -59,43 +52,44 @@ export default function Navbar() {
                                 <Link
                                     key={item.title}
                                     href={item.href}
-                                    className={`font-medium transition-colors duration-300 hover:text-green-600 ${isActive ? "text-green-600" : "text-gray-700"}`}
-                                >
+                                    className={`font-medium transition-colors duration-300 hover:text-green-600 ${isActive ? "text-green-600" : "text-gray-700"}`}>
                                     {item.title}
                                 </Link>
                             );
                         })}
-
-                        {isLoggedIn && (
-                            <>
-                                <Link
-                                    href="/dashboard"
-                                    className="font-medium text-gray-700 hover:text-green-600"
-                                >
-                                    Dashboard
-                                </Link>
-
-                                <Link
-                                    href="/resources/add"
-                                    className="font-medium text-gray-700 hover:text-green-600"
-                                >
-                                    Add Resource
-                                </Link>
-                            </>
-                        )}
                     </nav>
 
                     {/* Desktop Right */}
                     <div className="hidden md:block">
-                        {isLoggedIn ? (
-                            <button className="rounded-xl bg-red-500 px-5 py-2 text-white transition hover:bg-red-600">
-                                Logout
-                            </button>
+                        {isPending ? (
+                            <div className="rounded-xl bg-gray-300 px-5 py-2 text-white">
+                                Loading...
+                            </div>
+                        ) : isLoggedIn ? (
+                            <div className="flex items-center gap-4">
+                                <Link
+                                    href="/dashboard"
+                                    className="font-medium text-gray-900 hover:text-green-600">
+                                    Dashboard
+                                </Link>
+
+                                {/* <p className="font-medium text-gray-900">{user?.name || "User"}</p>
+
+                                <Avatar>
+                                    <Avatar.Image alt="John Doe" src={user?.photoURL ||  user?.image} />
+                                    <Avatar.Fallback>JD</Avatar.Fallback>
+                                </Avatar> */}
+
+                                <button
+                                    onClick={async () => await authClient.signOut()}
+                                    className="cursor-pointer rounded-xl bg-red-500 px-5 py-2 text-white transition hover:bg-red-600">
+                                    Logout
+                                </button>
+                            </div>
                         ) : (
                             <Link
                                 href="/auth/login"
-                                className="rounded-xl bg-green-600 px-5 py-2 font-medium text-white transition hover:bg-green-700"
-                            >
+                                className="rounded-xl bg-green-600 px-5 py-2 font-medium text-white transition hover:bg-green-700">
                                 Login
                             </Link>
                         )}
@@ -105,8 +99,7 @@ export default function Navbar() {
                     <button
                         className="md:hidden cursor-pointer"
                         onClick={() => setOpen(!open)}
-                        aria-label="Toggle Menu"
-                    >
+                        aria-label="Toggle Menu">
                         {open ? (
                             <X className="h-7 w-7" />
                         ) : (
@@ -126,39 +119,32 @@ export default function Navbar() {
                                         key={item.title}
                                         href={item.href}
                                         onClick={() => setOpen(false)}
-                                        className={`font-medium transition-colors duration-300 hover:text-green-600 ${isActive ? "text-green-600" : "text-gray-700"}`}
-                                    >
+                                        className={`font-medium transition-colors duration-300 hover:text-green-600 ${isActive ? "text-green-600" : "text-gray-700"}`}>
                                         {item.title}
                                     </Link>
-                            )})}
+                                )
+                            })}
 
                             {isLoggedIn && (
                                 <>
                                     <Link
                                         href="/dashboard"
-                                        className="font-medium text-gray-700 hover:text-green-600"
-                                    >
+                                        className="font-medium text-gray-700 hover:text-green-600">
                                         Dashboard
-                                    </Link>
-
-                                    <Link
-                                        href="/resources/add"
-                                        className="font-medium text-gray-700 hover:text-green-600"
-                                    >
-                                        Add Resource
                                     </Link>
                                 </>
                             )}
 
                             {isLoggedIn ? (
-                                <button className="rounded-xl bg-red-500 py-2 text-white">
+                                <button
+                                    className="cursor-pointer rounded-xl bg-red-500 py-2 text-white"
+                                    onClick={async () => await authClient.signOut()}>
                                     Logout
                                 </button>
                             ) : (
                                 <Link
                                     href="/login"
-                                    className="rounded-xl bg-green-600 py-2 text-center text-white"
-                                >
+                                    className="rounded-xl bg-green-600 py-2 text-center text-white">
                                     Login
                                 </Link>
                             )}
@@ -169,3 +155,4 @@ export default function Navbar() {
         </header>
     );
 }
+

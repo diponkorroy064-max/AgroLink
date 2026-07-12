@@ -15,17 +15,18 @@ export default function LoginForm() {
 
     const onSubmit = async (loginData: LoginFormData) => {
         try {
-            console.log("Login Data:", loginData);
+            // console.log("Login Data:", loginData);
 
             const { data, error } = await authClient.signIn.email(loginData);
-            console.log("Login Response:", data, error);
+            // console.log("Login Response:", data, error);
 
             if (error) {
                 throw new Error(error.message);
             }
-            toast.success("Login successful!");
-
-            router.push("/");
+            else if (!data) {
+                toast.success("Login successful!");
+                router.push("/");
+            }
         } catch (error) {
             console.error(error);
             toast.error("Invalid email or password");
