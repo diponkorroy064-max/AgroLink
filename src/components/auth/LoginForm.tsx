@@ -4,27 +4,31 @@ import { Eye, EyeOff, Leaf } from "lucide-react";
 import { useState } from "react";
 import { useForm } from "react-hook-form";
 import { LoginFormData } from "@/types/auth";
+import { authClient } from "@/lib/auth-client";
+import toast from "react-hot-toast";
+import { useRouter } from "next/navigation";
 
 export default function LoginForm() {
+    const router = useRouter();
     const [showPassword, setShowPassword] = useState(false);
     const { register, handleSubmit, formState: { errors } } = useForm<LoginFormData>();
 
-    const onSubmit = async (data: LoginFormData) => {
+    const onSubmit = async (loginData: LoginFormData) => {
         try {
-            console.log("Login Data:", data);
+            console.log("Login Data:", loginData);
 
-            // Send data to backend
-            // const response = await loginUser(data);
+            const { data, error } = await authClient.signIn.email(loginData);
+            console.log("Login Response:", data, error);
 
-            // console.log(response);
+            if (error) {
+                throw new Error(error.message);
+            }
+            toast.success("Login successful!");
 
-            // toast.success("Login Successful!");
-
-            // router.push("/dashboard");
+            router.push("/");
         } catch (error) {
             console.error(error);
-
-            // toast.error("Invalid email or password");
+            toast.error("Invalid email or password");
         }
     };
 

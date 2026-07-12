@@ -5,30 +5,39 @@ import { useState } from "react";
 import { useForm } from "react-hook-form";
 import { RegisterFormData } from "@/types/auth";
 import toast from "react-hot-toast";
+import { authClient } from "@/lib/auth-client";
+import { useRouter } from "next/navigation";
 
 export default function RegisterForm() {
+    const router = useRouter();
     const [showPassword, setShowPassword] = useState(false);
     const { register, handleSubmit, formState: { errors } } = useForm<RegisterFormData>();
 
-    const onSubmit = async (data: RegisterFormData) => {
+    const onSubmit = async (formData: RegisterFormData) => {
         try {
-            if (data.password !== data.confirmPassword) {
+            if (formData.password !== formData.confirmPassword) {
                 throw new Error("Passwords do not match.");
             }
-
             const userData = {
-                name: data.name,
-                email: data.email,
-                photoURL: data.photoURL || "",
-                role: data.role,
-                password: data.password,
+                name: formData.name,
+                email: formData.email,
+                photoURL: formData.photoURL || "",
+                role: formData.role,
+                password: formData.password,
             };
-
             console.log(userData);
 
-            // const response = await fetch(...)
+            const { data, error } = await authClient.signUp.email(userData);
+            console.log("Sign Up Response:", data, error);
 
-            toast.success("Registration successful!");
+            if (error) {
+                toast.error("Register failed " + error.message);
+            }
+            else if (data) {
+                toast.success("Register successfull! Verify your Email...");
+                // router.push(redirectTo);
+                router.push("/");
+            }
         }
         catch (error) {
             if (error instanceof Error) {
@@ -106,7 +115,7 @@ export default function RegisterForm() {
                         </label>
 
                         <input
-                            type="url"
+                            type="text"
                             {...register("photoURL")}
                             placeholder="https://..."
                             className="w-full rounded-xl border border-gray-300 px-4 py-3 focus:border-green-600 focus:outline-none"
@@ -128,8 +137,7 @@ export default function RegisterForm() {
                                 required: "Role is required",
                             })}
                             className="w-full rounded-xl border border-gray-300 px-4 py-3 focus:border-green-600 focus:outline-none"
-                            defaultValue=""
-                        >
+                            defaultValue="">
                             <option value="" disabled>
                                 Choose your role
                             </option>
