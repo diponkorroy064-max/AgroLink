@@ -7,11 +7,6 @@ export const farmerLinks = [
         icon: Home,
     },
     {
-        title: "My Profile",
-        href: "/dashboard/farmer/profile",
-        icon: User,
-    },
-    {
         title: "Add Resource",
         href: "/dashboard/farmer/add-resource",
         icon: PlusCircle,
@@ -20,6 +15,11 @@ export const farmerLinks = [
         title: "My Resources",
         href: "/dashboard/farmer/my-resources",
         icon: FolderOpen,
+    },
+    {
+        title: "My Profile",
+        href: "/dashboard/farmer/profile",
+        icon: User,
     },
     {
         title: "Settings",

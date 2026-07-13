@@ -23,10 +23,11 @@ export default function LoginForm() {
             if (error) {
                 throw new Error(error.message);
             }
-            else if (!data) {
+            else if (data) {
                 toast.success("Login successful!");
-                router.push("/");
             }
+            router.refresh();
+            router.push("/");
         } catch (error) {
             console.error(error);
             toast.error("Invalid email or password");
@@ -117,8 +118,7 @@ export default function LoginForm() {
 
                     <button
                         type="submit"
-                        className="w-full rounded-xl bg-green-600 py-3 font-semibold text-white transition hover:bg-green-700"
-                    >
+                        className="cursor-pointer w-full rounded-xl bg-green-600 py-3 font-semibold text-white transition hover:bg-green-700">
                         Login
                     </button>
 

@@ -1,25 +1,85 @@
 "use client";
 import Link from "next/link";
 import { getSidebarLinks } from "@/utils/getSidebarLinks";
+import { Leaf } from "lucide-react";
+import { Avatar } from "@heroui/react";
+import { usePathname } from "next/navigation";
 
-interface DashboardSidebarProps { role: string;}
+interface DashboardSidebarProps {
+    user?: {
+        name?: string;
+        role?: string;
+        image?: string;
+        photoURL?: string;
+    };
+}
 
-export default function DashboardSidebar({ role }: DashboardSidebarProps) {
-    console.log('role from dashboard sidebar', role);
-    
-    const links = getSidebarLinks(role);
+export default function DashboardSidebar({ user }: DashboardSidebarProps) {
+    console.log('role from dashboard sidebar', user);
+    const links = getSidebarLinks(user?.role || "");
+    const pathname = usePathname();
 
     return (
-        <aside className="h-full w-60 overflow-y-auto border-r px-2.5 md:px-5 bg-white shadow">
+        <aside className="fixed left-0 top-20 h-[calc(100vh-80px)] w-60 border-r bg-white px-5 py-6 shadow-sm">
+
+            {/* Logo + User */}
+            <div className="mb-8">
+
+                {/* Dashboard Logo */}
+                <div className="mb-6 flex items-center gap-3">
+                    <div className="flex h-12 w-12 items-center justify-center rounded-xl bg-green-100">
+                        <Leaf className="text-green-700" size={26} />
+                    </div>
+
+                    <div>
+                        <h2 className="font-bold text-gray-900">
+                            AgroLink
+                        </h2>
+
+                        <p className="text-sm text-gray-500">
+                            Dashboard
+                        </p>
+                    </div>
+                </div>
+
+                {/* User */}
+                <div className="flex items-center gap-3 rounded-xl bg-gray-50 p-3">
+
+                    <Avatar size="lg">
+                        <Avatar.Image
+                            alt="Large Avatar"
+                            src={user?.photoURL}
+                        />
+                        <Avatar.Fallback>LG</Avatar.Fallback>
+                    </Avatar>
+
+                    <div>
+                        <h3 className="font-semibold text-gray-900">
+                            {user?.name || "Guest User"}
+                        </h3>
+
+                        <p className="text-sm capitalize text-green-600">
+                            {user?.role}
+                        </p>
+                    </div>
+
+                </div>
+            </div>
+
             <nav className="space-y-2">
                 {links.map((link) => {
                     const Icon = link.icon;
+                    const active = pathname === link.href
 
                     return (
                         <Link
                             key={link.href}
                             href={link.href}
-                            className="flex items-center gap-3 rounded-lg p-3 hover:bg-green-100"
+                            className={`flex items-center gap-3 rounded-xl p-3 transition-all
+                                ${active
+                                    ? "bg-green-600 text-white shadow"
+                                    : "text-gray-700 hover:bg-green-100 hover:text-green-700"
+                                }`}
                         >
                             <Icon size={20} />
                             <span>{link.title}</span>
