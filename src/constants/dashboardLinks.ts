@@ -63,12 +63,12 @@ export const expertLinks = [
         icon: Home,
     },
     {
-        title: "Publish Resource",
-        href: "/dashboard/expert/add-resource",
+        title: "Add Resource",
+        href: "/dashboard/expert/add-business-resource",
         icon: PlusCircle,
     },
     {
-        title: "Published Resources",
+        title: "All Resources",
         href: "/dashboard/expert/my-resources",
         icon: ClipboardList,
     },

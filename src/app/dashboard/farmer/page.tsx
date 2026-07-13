@@ -1,5 +1,5 @@
-import Welcome from "@/components/dashboard/farmer/Welcome";
-import Stats from "@/components/dashboard/farmer/Stats";
+import Welcome from "@/components/dashboard/common/Welcome";
+import Stats from "@/components/dashboard/common/Stats";
 import RecentResources from "@/components/dashboard/farmer/RecentResources";
 import QuickActions from "@/components/dashboard/farmer/QuickActions";
 import WeatherCard from "@/components/dashboard/farmer/WeatherCard";
