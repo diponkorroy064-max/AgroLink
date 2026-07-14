@@ -2,9 +2,9 @@ import { ShieldCheck } from "lucide-react";
 import AdminOverview from "@/components/dashboard/admin/AdminOverview";
 import RecentUsers from "@/components/dashboard/admin/RecentUsers";
 import AdminStatistics from "@/components/dashboard/admin/AdminStatistics";
-import PlatformAnalytics from "./PlatformAnalytics";
 import QuickActions from "@/components/dashboard/admin/QuickActions ";
 import RecentResources from "@/components/dashboard/admin/RecentResources";
+import PlatformAnalytics from "@/components/dashboard/admin/PlatformAnalytics";
 
 const AdminDashboardPage = () => {
     return (

@@ -135,7 +135,7 @@ export const adminLinks = [
     },
     {
         title: "Settings",
-        href: "/dashboard/settings",
+        href: "/dashboard/admin/settings",
         icon: Settings,
     },
 ];
