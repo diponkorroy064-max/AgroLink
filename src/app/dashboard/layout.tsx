@@ -1,36 +1,40 @@
 "use client";
-import { ReactNode } from "react";
-import DashboardSidebar from "@/components/dashboard/DashboardSidebar";
+import { ReactNode, useState } from "react";
 import DashboardNavbar from "@/components/dashboard/DashboardNavbar";
+import DashboardSidebar from "@/components/dashboard/DashboardSidebar";
 import { authClient } from "@/lib/auth-client";
 
 interface DashboardLayoutProps {
     children: ReactNode;
 }
 
-export default function DashboardLayout({children}: DashboardLayoutProps) {
+export default function DashboardLayout({
+    children,
+}: DashboardLayoutProps) {
     const { data } = authClient.useSession();
-    // console.log('data from layout', data);
     const user = data?.user;
-    // console.log('user from layout', user);
+
+    const [sidebarOpen, setSidebarOpen] = useState(false);
 
     return (
-        <div className="min-h-full bg-gray-100" >
-            {/* Top Navbar */}
-            < DashboardNavbar user={user} />
+        <div className="min-h-screen bg-gray-100">
 
-            {/* Sidebar + Content */}
-            < div className="flex" >
+            <DashboardNavbar
+                user={user}
+                sidebarOpen={sidebarOpen}
+                onMenuClick={() => setSidebarOpen(!sidebarOpen)}
+            />
 
-                <DashboardSidebar user={user} />
+            <DashboardSidebar
+                user={user}
+                sidebarOpen={sidebarOpen}
+                setSidebarOpen={setSidebarOpen}
+            />
 
-                <main className="flex-1 md:ml-60">
-                    <div className="mx-auto max-w-7xl p-6">
-                        {children}
-                    </div>
-                </main>
-            </div>
+            <main className="p-6 lg:ml-60">
+                {children}
+            </main>
+
         </div>
     );
 }
-

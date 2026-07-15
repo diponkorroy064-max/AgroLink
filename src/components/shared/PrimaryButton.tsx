@@ -21,11 +21,17 @@ const PrimaryButton = ({
         primary:
             "bg-green-600 text-white hover:bg-green-700 hover:shadow-lg",
 
+        primaryLight:
+            "bg-green-100 text-green-700 hover:bg-green-200 hover:text-green-800",
+
         outline:
             "border-2 border-green-600 text-green-600 hover:bg-green-600 hover:text-white",
 
         secondary:
             "bg-amber-500 text-white hover:bg-amber-600 hover:shadow-lg",
+
+        ghost:
+            "bg-transparent text-green-700 hover:bg-green-100 hover:text-green-800",
     };
 
     return (

@@ -6,12 +6,12 @@ import PrimaryButton from "../shared/PrimaryButton";
 
 export default function ExploreBanner() {
     return (
-        <section className="relative overflow-hidden bg-linear-to-r from-green-900 via-green-800 to-emerald-700 py-20 lg:py-28">
+        <section className="relative overflow-hidden bg-linear-to-r from-green-900 via-green-800 to-emerald-700 py-8 lg:py-15">
             {/* Background Overlay */}
             <div className="absolute inset-0 bg-black/20" />
 
             <Container>
-                <div className="relative grid items-center gap-16 lg:grid-cols-2">
+                <div className="relative grid items-center gap-12 lg:grid-cols-2">
                     {/* Left Content */}
                     <div className="text-white">
                         <span className="inline-flex items-center gap-2 rounded-full bg-white/15 px-5 py-2 text-sm font-medium backdrop-blur">
@@ -76,11 +76,11 @@ export default function ExploreBanner() {
 
                         <div className="relative overflow-hidden rounded-3xl border border-white/20 shadow-2xl">
                             <Image
-                                src="https://images.unsplash.com/photo-1500937386664-56d1dfef3854"
+                                src="https://images.unsplash.com/photo-1580982327559-c1202864eb05"
                                 alt="Modern Agriculture"
                                 width={700}
                                 height={550}
-                                className="h-125 w-full object-cover"
+                                className="h-130 w-full object-cover"
                                 priority
                             />
                         </div>

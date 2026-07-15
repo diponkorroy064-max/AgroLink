@@ -1,13 +1,12 @@
 import Image from "next/image";
 import { Sprout, Users, Tractor, BookOpen } from "lucide-react";
-
 import Container from "../shared/Container";
 import PrimaryButton from "../shared/PrimaryButton";
 
 const Hero = () => {
     return (
         <section className="bg-linear-to-b from-green-50 via-white to-white">
-            <Container className="py-16 lg:py-24">
+            <Container className="py-8 lg:py-10">
                 <div className="grid items-center gap-12 lg:grid-cols-2">
                     {/* Left Side */}
                     <div>
@@ -76,11 +75,11 @@ const Hero = () => {
                     <div className="relative">
                         <div className="overflow-hidden rounded-3xl shadow-2xl">
                             <Image
-                                src="https://images.unsplash.com/photo-1559884743-74a57598c6c7"
+                                src="https://plus.unsplash.com/premium_photo-1678344151150-4a42c45453d5"
                                 alt="Modern Agriculture"
                                 width={700}
                                 height={600}
-                                className="h-full w-full object-cover"
+                                className="h-180 w-full object-cover"
                                 priority
                             />
                         </div>

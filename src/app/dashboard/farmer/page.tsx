@@ -10,23 +10,17 @@ export default function FarmerDashboardPage() {
         <div className="space-y-8">
 
             <Welcome />
-
             <Stats />
 
             <div className="grid gap-6 lg:grid-cols-3">
-
                 <div className="lg:col-span-2">
                     <RecentResources />
                 </div>
-
                 <WeatherCard/>
-
             </div>
 
             <QuickActions />
-
             <RecommendedResources/>
-
         </div>
     );
 }

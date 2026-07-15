@@ -1,5 +1,6 @@
 import Image from "next/image";
 import Container from "../shared/Container";
+import PrimaryButton from "../shared/PrimaryButton";
 
 export default function AboutHero() {
     return (
@@ -21,10 +22,21 @@ export default function AboutHero() {
                             professionals with modern farming knowledge, smart tools, and
                             trusted resources.
                         </p>
+
+                        {/* Buttons */}
+                        <div className="mt-8 flex flex-wrap gap-4">
+                            <PrimaryButton href="/explore">
+                                Explore Resources
+                            </PrimaryButton>
+
+                            <PrimaryButton href="/resources/add" variant="secondary">
+                                Share Resource
+                            </PrimaryButton>
+                        </div>
                     </div>
 
                     <Image
-                        src="https://images.unsplash.com/photo-1500937386664-56d1dfef3854"
+                        src="https://images.unsplash.com/photo-1537721664796-76f77222a5d0"
                         alt="Agriculture"
                         width={650}
                         height={500}

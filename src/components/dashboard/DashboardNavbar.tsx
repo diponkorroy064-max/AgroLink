@@ -1,6 +1,6 @@
 "use client";
 import { Avatar } from "@heroui/react";
-import { Menu, Bell, Search, CalendarDays } from "lucide-react";
+import { Menu, Bell, Search, CalendarDays, X } from "lucide-react";
 
 interface DashboardNavbarProps {
     user: {
@@ -8,11 +8,13 @@ interface DashboardNavbarProps {
         role: string;
         photoURL?: string;
     };
-    onMenuClick?: () => void;
+    sidebarOpen: boolean;
+    onMenuClick: () => void;
 }
 
 export default function DashboardNavbar({
     user,
+    sidebarOpen,
     onMenuClick,
 }: DashboardNavbarProps) {
     const today = new Date().toLocaleDateString("en-US", {
@@ -23,11 +25,8 @@ export default function DashboardNavbar({
     });
 
     return (
-        <header className="sticky top-0 z-40 border-b bg-white">
+        <header className="sticky top-0 z-500 border-b bg-white md:ml-60">
             <div className="flex h-20 items-center justify-between px-4 lg:px-8">
-
-                {/* left */}
-                {/* <div></div> */}
 
                 {/* middle */}
                 <div className="flex items-center gap-4">
@@ -35,17 +34,17 @@ export default function DashboardNavbar({
                     {/* Mobile Menu */}
                     <button
                         onClick={onMenuClick}
-                        className="rounded-lg p-2 transition hover:bg-gray-100 lg:hidden"
-                    >
-                        <Menu className="h-6 w-6" />
+                        className="rounded-lg p-2 transition hover:bg-gray-100 lg:hidden cursor-pointer">
+                        {sidebarOpen ? (
+                            <X className="h-6 w-6" />
+                        ) : (
+                            <Menu className="h-6 w-6" />
+                        )}
                     </button>
 
                     {/* Search */}
                     <div className="relative hidden md:block">
-                        <Search
-                            size={18}
-                            className="absolute left-4 top-1/2 -translate-y-1/2 text-gray-400"
-                        />
+                        <Search size={18} className="absolute left-4 top-1/2 -translate-y-1/2 text-gray-400"/>
 
                         <input
                             type="text"

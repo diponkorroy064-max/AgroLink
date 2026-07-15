@@ -36,7 +36,7 @@ export const studentLinks = [
     },
     {
         title: "Learning Resources",
-        href: "/dashboard/student/my-resources",
+        href: "/dashboard/student/resources",
         icon: BookOpen,
     },
     {

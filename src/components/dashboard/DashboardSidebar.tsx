@@ -4,6 +4,7 @@ import { getSidebarLinks } from "@/utils/getSidebarLinks";
 import { Leaf } from "lucide-react";
 import { Avatar } from "@heroui/react";
 import { usePathname } from "next/navigation";
+import { X } from "lucide-react";
 
 interface DashboardSidebarProps {
     user?: {
@@ -12,15 +13,24 @@ interface DashboardSidebarProps {
         image?: string;
         photoURL?: string;
     };
+    sidebarOpen: boolean;
+    setSidebarOpen: React.Dispatch<React.SetStateAction<boolean>>;
 }
 
-export default function DashboardSidebar({ user }: DashboardSidebarProps) {
+
+export default function DashboardSidebar({
+    user,
+    sidebarOpen,
+    setSidebarOpen,
+}: DashboardSidebarProps) {
     console.log('role from dashboard sidebar', user);
     const links = getSidebarLinks(user?.role || "");
     const pathname = usePathname();
 
     return (
-        <aside className="fixed left-0 top-20 h-[calc(100vh-80px)] w-60 border-r bg-white px-5 py-6 shadow-sm">
+        <aside className={`fixed left-0 top-20 h-[calc(100vh-80px)] w-60 border-r z-400 bg-white px-5 py-6 shadow-sm transition-transform
+        duration-300 ${sidebarOpen? "translate-x-0" : "-translate-x-full"}
+        lg:translate-x-0`}>
 
             {/* Logo + User */}
             <div className="mb-8">

@@ -7,6 +7,7 @@ import { usePathname } from "next/navigation";
 import { authClient, useSession } from "@/lib/auth-client";
 // import { Avatar } from "@heroui/react";
 
+
 const navLinks = [
     { title: "Home", href: "/" },
     { title: "Explore", href: "/explore" },
@@ -17,6 +18,7 @@ const navLinks = [
 export default function Navbar() {
     const [open, setOpen] = useState(false);
     const pathname = usePathname();
+    const isDashboardActive = pathname.startsWith("/dashboard");
 
     const { data, isPending } = useSession();
     console.log("User session:", data);
@@ -26,7 +28,7 @@ export default function Navbar() {
     // const isLoggedIn = !!data;
 
     return (
-        <header className="sticky top-0 z-50 border-b bg-white shadow-sm">
+        <header className="sticky top-0 z-600 border-b bg-white shadow-sm">
             <Container>
                 {/* Desktop Navbar */}
                 <div className="flex h-20 items-center justify-between">
@@ -73,7 +75,7 @@ export default function Navbar() {
                                 <div className="flex items-center gap-4">
                                     <Link
                                         href="/dashboard"
-                                        className="font-medium text-gray-900 hover:text-green-600">
+                                        className={`font-medium transition-colors duration-300 ${isDashboardActive ? "text-green-600" : "text-gray-700 hover:text-green-600"}`}>
                                         Dashboard
                                     </Link>
 
@@ -133,7 +135,7 @@ export default function Navbar() {
                                 <>
                                     <Link
                                         href="/dashboard"
-                                        className="font-medium text-gray-700 hover:text-green-600">
+                                        className={`font-medium transition-colors duration-300 ${isDashboardActive ? "text-green-600" : "text-gray-700 hover:text-green-600"}`}>
                                         Dashboard
                                     </Link>
                                 </>

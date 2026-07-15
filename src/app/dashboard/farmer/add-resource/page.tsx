@@ -7,10 +7,7 @@ export default function AddResource() {
         <div className="space-y-8">
             {/* Breadcrumb */}
             <div className="flex items-center text-sm text-gray-500">
-                <Link
-                    href="/dashboard/farmer"
-                    className="hover:text-green-600"
-                >
+                <Link href="/dashboard/farmer" className="hover:text-green-600">
                     Dashboard
                 </Link>
 
@@ -49,3 +46,4 @@ export default function AddResource() {
         </div>
     );
 }
+
