@@ -21,10 +21,10 @@ export default function Navbar() {
     const isDashboardActive = pathname.startsWith("/dashboard");
 
     const { data, isPending } = useSession();
-    console.log("User session:", data);
-    console.log('is pending from navbar', isPending)
+    // console.log("User session:", data);
+    // console.log('is pending from navbar', isPending)
     const user = data?.user;
-    console.log("User info:", user);
+    // console.log("User info:", user);
     // const isLoggedIn = !!data;
 
     return (

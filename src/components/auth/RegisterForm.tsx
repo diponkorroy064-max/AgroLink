@@ -28,7 +28,7 @@ export default function RegisterForm() {
             console.log(userData);
 
             const { data, error } = await authClient.signUp.email(userData);
-            console.log("Sign Up Response:", data, error);
+            // console.log("Sign Up Response:", data, error);
 
             if (error) {
                 toast.error("Register failed " + error.message);

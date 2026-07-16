@@ -8,12 +8,9 @@ interface DashboardLayoutProps {
     children: ReactNode;
 }
 
-export default function DashboardLayout({
-    children,
-}: DashboardLayoutProps) {
+export default function DashboardLayout({ children}: DashboardLayoutProps) {
     const { data } = authClient.useSession();
     const user = data?.user;
-
     const [sidebarOpen, setSidebarOpen] = useState(false);
 
     return (
@@ -28,13 +25,11 @@ export default function DashboardLayout({
             <DashboardSidebar
                 user={user}
                 sidebarOpen={sidebarOpen}
-                setSidebarOpen={setSidebarOpen}
             />
 
             <main className="p-6 lg:ml-60">
                 {children}
             </main>
-
         </div>
     );
 }

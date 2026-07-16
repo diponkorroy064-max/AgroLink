@@ -1,23 +1,9 @@
-import Link from "next/link";
-import { ChevronRight, PlusCircle } from "lucide-react";
+import { PlusCircle } from "lucide-react";
 import AddResourceForm from "@/components/dashboard/farmer/add-resource/AddResourceForm";
 
 export default function AddResource() {
     return (
         <div className="space-y-8">
-            {/* Breadcrumb */}
-            <div className="flex items-center text-sm text-gray-500">
-                <Link href="/dashboard/farmer" className="hover:text-green-600">
-                    Dashboard
-                </Link>
-
-                <ChevronRight size={16} className="mx-2" />
-
-                <span className="font-medium text-gray-700">
-                    Add Resource
-                </span>
-            </div>
-
             {/* Header */}
             <div className="rounded-3xl bg-linear-to-r from-green-600 to-emerald-600 p-8 text-white shadow">
                 <div className="flex items-center gap-4">

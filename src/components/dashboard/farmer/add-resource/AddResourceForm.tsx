@@ -1,6 +1,8 @@
 "use client";
 import { useForm } from "react-hook-form";
 import { UploadCloud } from "lucide-react";
+import { useRouter } from "next/navigation";
+import toast from "react-hot-toast";
 
 interface ResourceFormData {
     title: string;
@@ -16,6 +18,7 @@ interface ResourceFormData {
 }
 
 export default function AddResourceForm() {
+    const router = useRouter();
     const {
         register,
         handleSubmit,
@@ -23,19 +26,51 @@ export default function AddResourceForm() {
     } = useForm<ResourceFormData>();
 
     const onSubmit = async (data: ResourceFormData) => {
-        console.log(data);
+        try {
+            const formData = new FormData();
 
-        // Later:
-        // 1. Upload image to Cloudinary
-        // 2. Upload PDF (optional)
-        // 3. Save resource to MongoDB
+            formData.append("title", data.title);
+            formData.append("category", data.category);
+            formData.append("resourceType", data.resourceType);
+            formData.append("location", data.location);
+            formData.append("tags", data.tags);
+            formData.append("description", data.description);
+            formData.append("content", data.content);
+
+            if (data.youtubeLink) {
+                formData.append("youtubeLink", data.youtubeLink);
+            }
+            formData.append("image", data.image[0]);
+            if (data.pdf?.length) {
+                formData.append("pdf", data.pdf[0]);
+            }
+
+            const response = await fetch("/api/resources", {
+                method: "POST",
+                body: formData,
+            });
+
+            const result = await response.json();
+
+            if (result.success) {
+                toast.success("Resource published successfully!");
+
+                setTimeout(() => {
+                    router.push("/dashboard/farmer/my-resources");
+                }, 1200);
+            } else {
+                toast.error(result.message || "Failed to publish resource.");
+            }
+
+        } catch (error) {
+            console.log(error);
+        }
     };
 
     return (
         <form
             onSubmit={handleSubmit(onSubmit)}
-            className="space-y-8"
-        >
+            className="space-y-8">
             {/* Basic Information */}
             <div>
                 <h2 className="mb-5 text-xl font-semibold">
@@ -55,8 +90,7 @@ export default function AddResourceForm() {
                             {...register("title", {
                                 required: "Title is required",
                             })}
-                            className="w-full rounded-xl border p-3 outline-none focus:border-green-600"
-                        />
+                            className="w-full rounded-xl border p-3 outline-none focus:border-green-600" />
 
                         {errors.title && (
                             <p className="mt-1 text-sm text-red-500">
@@ -75,8 +109,7 @@ export default function AddResourceForm() {
                             {...register("category", {
                                 required: "Category is required",
                             })}
-                            className="w-full rounded-xl border p-3 outline-none focus:border-green-600"
-                        >
+                            className="w-full rounded-xl border p-3 outline-none focus:border-green-600">
                             <option value="">Select Category</option>
                             <option>Crop Production</option>
                             <option>Irrigation</option>
@@ -104,8 +137,7 @@ export default function AddResourceForm() {
                             {...register("resourceType", {
                                 required: "Resource type is required",
                             })}
-                            className="w-full rounded-xl border p-3 outline-none focus:border-green-600"
-                        >
+                            className="w-full rounded-xl border p-3 outline-none focus:border-green-600">
                             <option value="">Select Type</option>
                             <option>Guide</option>
                             <option>Tutorial</option>
@@ -152,7 +184,7 @@ export default function AddResourceForm() {
                 </div>
             </div>
 
-            {/* Image Upload */}
+            {/* Image Upload-- */}
             <div>
                 <h2 className="mb-5 text-xl font-semibold">
                     Cover Image
@@ -161,8 +193,7 @@ export default function AddResourceForm() {
                 <label className="flex cursor-pointer flex-col items-center justify-center rounded-2xl border-2 border-dashed border-gray-300 p-8 transition hover:border-green-500">
                     <UploadCloud
                         size={40}
-                        className="mb-3 text-green-600"
-                    />
+                        className="mb-3 text-green-600" />
 
                     <p className="font-medium">
                         Click to upload image
@@ -178,8 +209,7 @@ export default function AddResourceForm() {
                         {...register("image", {
                             required: "Image is required",
                         })}
-                        className="hidden"
-                    />
+                        className="hidden" />
                 </label>
 
                 {errors.image && (
@@ -201,8 +231,7 @@ export default function AddResourceForm() {
                     {...register("description", {
                         required: "Description is required",
                     })}
-                    className="w-full rounded-xl border p-3 outline-none focus:border-green-600"
-                />
+                    className="w-full rounded-xl border p-3 outline-none focus:border-green-600" />
 
                 {errors.description && (
                     <p className="mt-1 text-sm text-red-500">
@@ -223,8 +252,7 @@ export default function AddResourceForm() {
                     {...register("content", {
                         required: "Content is required",
                     })}
-                    className="w-full rounded-xl border p-3 outline-none focus:border-green-600"
-                />
+                    className="w-full rounded-xl border p-3 outline-none focus:border-green-600" />
 
                 {errors.content && (
                     <p className="mt-1 text-sm text-red-500">
@@ -266,15 +294,13 @@ export default function AddResourceForm() {
             <div className="flex justify-end gap-4">
                 <button
                     type="reset"
-                    className="rounded-xl border px-6 py-3 font-medium hover:bg-gray-100"
-                >
+                    className="rounded-xl border px-6 py-3 font-medium hover:bg-gray-100">
                     Reset
                 </button>
 
                 <button
                     type="submit"
-                    className="rounded-xl bg-green-600 px-8 py-3 font-semibold text-white transition hover:bg-green-700"
-                >
+                    className="rounded-xl bg-green-600 px-8 py-3 font-semibold text-white transition hover:bg-green-700">
                     Publish Resource
                 </button>
             </div>
