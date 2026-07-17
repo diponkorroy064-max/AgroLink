@@ -1,36 +1,242 @@
-This is a [Next.js](https://nextjs.org) project bootstrapped with [`create-next-app`](https://nextjs.org/docs/app/api-reference/cli/create-next-app).
+# 🌱 AgroLink Client
 
-## Getting Started
+AgroLink is a modern agricultural knowledge-sharing platform that connects **Farmers, Students, Agricultural Experts, and Businesses**. Farmers can publish agricultural resources, while other users can explore, learn, and interact with valuable farming content.
 
-First, run the development server:
+---
+
+## 🚀 Live Demo
+
+Coming Soon...
+
+---
+
+## 📸 Features
+
+### 👨‍🌾 Farmer
+
+- Secure authentication using Better Auth
+- Publish agricultural resources
+- Upload cover images to Cloudinary
+- Upload PDF documents
+- Manage personal resources
+- View published resources
+
+### 🌾 Explore Resources
+
+- Browse agricultural resources
+- View resource details
+- Responsive resource cards
+- Category-based information
+
+### 🔐 Authentication
+
+- Better Auth
+- Protected Routes
+- Role-based access
+
+### ☁️ File Upload
+
+- Cloudinary image upload
+- PDF upload support
+
+### 📱 Responsive UI
+
+- Mobile Friendly
+- Tablet Friendly
+- Desktop Friendly
+
+---
+
+# 🛠 Tech Stack
+
+## Frontend
+
+- Next.js 16
+- React 19
+- TypeScript
+- Tailwind CSS
+- React Hook Form
+- React Hot Toast
+- HeroUI
+- Lucide React
+
+## Authentication
+
+- Better Auth
+
+## Image Hosting
+
+- Cloudinary
+
+---
+
+# 📂 Folder Structure
+
+```text
+src
+│
+├── app
+│   ├── api
+│   ├── dashboard
+│   ├── explore
+│   └── auth
+│
+├── components
+│   ├── shared
+│   ├── home
+│   ├── dashboard
+│   └── explore
+│
+├── hooks
+├── lib
+├── providers
+├── types
+├── utils
+└── middleware.ts
+```
+
+---
+
+# ⚙️ Environment Variables
+
+Create a `.env` file in the root directory.
+
+```env
+BETTER_AUTH_URL=http://localhost:3000
+BETTER_AUTH_SECRET=your_secret
+
+MONGODB_URI=your_mongodb_uri
+DATABASE_NAME=AgroLink
+
+SERVER_URL=http://localhost:5000
+
+CLOUDINARY_CLOUD_NAME=your_cloud_name
+CLOUDINARY_API_KEY=your_api_key
+CLOUDINARY_API_SECRET=your_api_secret
+```
+
+---
+
+# 📦 Installation
+
+Clone the repository
+
+```bash
+git clone https://github.com/your-username/agrolink-client.git
+```
+
+Move into the project
+
+```bash
+cd agrolink-client
+```
+
+Install dependencies
+
+```bash
+npm install
+```
+
+Run the development server
 
 ```bash
 npm run dev
-# or
-yarn dev
-# or
-pnpm dev
-# or
-bun dev
 ```
 
-Open [http://localhost:3000](http://localhost:3000) with your browser to see the result.
+Open
 
-You can start editing the page by modifying `app/page.tsx`. The page auto-updates as you edit the file.
+```
+http://localhost:3000
+```
 
-This project uses [`next/font`](https://nextjs.org/docs/app/building-your-application/optimizing/fonts) to automatically optimize and load [Geist](https://vercel.com/font), a new font family for Vercel.
+---
 
-## Learn More
+# 📚 Dependencies
 
-To learn more about Next.js, take a look at the following resources:
+- next
+- react
+- react-dom
+- typescript
+- tailwindcss
+- react-hook-form
+- better-auth
+- mongodb
+- lucide-react
+- react-hot-toast
+- heroUI
 
-- [Next.js Documentation](https://nextjs.org/docs) - learn about Next.js features and API.
-- [Learn Next.js](https://nextjs.org/learn) - an interactive Next.js tutorial.
+---
 
-You can check out [the Next.js GitHub repository](https://github.com/vercel/next.js) - your feedback and contributions are welcome!
+# 👥 User Roles
 
-## Deploy on Vercel
+- Farmer
+- Student
+- Agricultural Expert
+- Business
+- Admin
 
-The easiest way to deploy your Next.js app is to use the [Vercel Platform](https://vercel.com/new?utm_medium=default-template&filter=next.js&utm_source=create-next-app&utm_campaign=create-next-app-readme) from the creators of Next.js.
+---
 
-Check out our [Next.js deployment documentation](https://nextjs.org/docs/app/building-your-application/deploying) for more details.
+# 🔮 Upcoming Features
+
+- Resource Approval System
+- Resource Search
+- Category Filtering
+- Resource Bookmarking
+- Likes & Comments
+- Resource Analytics
+- Admin Dashboard
+- Notifications
+- Farmer Profile
+- Expert Consultation
+- AI-powered Agricultural Assistant
+
+---
+
+# 📷 Screenshots
+
+_Add screenshots here after deployment._
+
+---
+
+# 🤝 Contributing
+
+Contributions are welcome!
+
+1. Fork the repository
+2. Create a feature branch
+
+```bash
+git checkout -b feature-name
+```
+
+3. Commit changes
+
+```bash
+git commit -m "Added new feature"
+```
+
+4. Push changes
+
+```bash
+git push origin feature-name
+```
+
+5. Open a Pull Request
+
+---
+
+# 📄 License
+
+This project is licensed under the MIT License.
+
+---
+
+# 👨‍💻 Developer
+
+**Diponkor Roy**
+
+Frontend Developer (MERN Stack)
+
+- GitHub: https://github.com/diponkorroy064-max
+- LinkedIn: https://www.linkedin.com/in/diponkorroy21010504
