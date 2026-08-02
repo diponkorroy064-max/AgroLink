@@ -6,7 +6,7 @@ AgroLink is a modern agricultural knowledge-sharing platform that connects **Far
 
 ## 🚀 Live Demo
 
-Coming Soon...
+https://agrolink-nine-pied.vercel.app
 
 ---
 
